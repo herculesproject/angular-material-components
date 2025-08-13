@@ -30,10 +30,12 @@ jobs:
     - name: Build
       run: |
         cd projects/datetime-picker
-        export VERSION=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+        export VERSION=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed -E 's/"version":|"|,//g' | tr -d '[[:space:]]')
         npm version --commit-hooks=false --git-tag-version=false $VERSION.$(date +%Y%m%d%H%M%S)
         cd ../..
         npm run build:datetime-picker
 
-
-
+    - name: Publish
+      run: npm publish --provenance --access public dist/@herculesproject/datetime-picker
+      env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
