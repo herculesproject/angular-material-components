@@ -110,7 +110,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
     } else {
       this._model = this._dateAdapter.today();
       if (this.defaultTime != null) {
-        this._dateAdapter.setTimeByDefaultValues(this._model, this.defaultTime);
+        this._model = this._dateAdapter.setTimeByDefaultValues(this._model, this.defaultTime);
       }
     }
     this._updateHourMinuteSecond();
@@ -182,9 +182,9 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
       _hour = _hour + LIMIT_TIMES.meridian;
     }
 
-    this._dateAdapter.setHour(this._model, _hour);
-    this._dateAdapter.setMinute(this._model, this.minute);
-    this._dateAdapter.setSecond(this._model, this.second);
+    this._model = this._dateAdapter.setHour(this._model, _hour);
+    this._model = this._dateAdapter.setMinute(this._model, this.minute);
+    this._model = this._dateAdapter.setSecond(this._model, this.second);
     this._onChange(this._model);
   }
 
