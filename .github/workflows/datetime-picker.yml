@@ -31,7 +31,11 @@ jobs:
       run: |
         cd projects/datetime-picker
         export VERSION=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed -E 's/"version":|"|,//g' | tr -d '[[:space:]]')
-        npm version --commit-hooks=false --git-tag-version=false $VERSION.$(date +%Y%m%d%H%M%S)
+
+        if [[ "$VERSION" == *SNAPSHOT* ]]; then
+          npm version --commit-hooks=false --git-tag-version=false $VERSION.$(date +%Y%m%d%H%M%S)
+        fi
+
         cd ../..
         npm run build:datetime-picker
 
