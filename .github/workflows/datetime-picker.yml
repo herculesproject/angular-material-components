@@ -18,11 +18,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Use Node.js 14
+    - name: Use Node.js 14 for build
       uses: actions/setup-node@v4
       with:
         node-version: '14.x'
-        registry-url: 'https://registry.npmjs.org'
 
     - name: Install dependencias
       run: npm install
@@ -39,7 +38,11 @@ jobs:
         cd ../..
         npm run build:datetime-picker
 
+    - name: Use Node.js 24 for publish
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24.x'
+        registry-url: 'https://registry.npmjs.org'
+
     - name: Publish
       run: npm publish --provenance --access public dist/@herculesproject/datetime-picker
-      env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
