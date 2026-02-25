@@ -62,9 +62,9 @@ export abstract class NgxMatDateAdapter<D> extends DateAdapter<D> {
    */
   copyTime(toDate: D, fromDate: D): D {
     let value = toDate;
-    value = this.setHour(toDate, this.getHour(fromDate));
-    value = this.setMinute(toDate, this.getMinute(fromDate));
-    value = this.setSecond(toDate, this.getSecond(fromDate));
+    value = this.setHour(value, this.getHour(fromDate));
+    value = this.setMinute(value, this.getMinute(fromDate));
+    value = this.setSecond(value, this.getSecond(fromDate));
     return value;
   }
 
@@ -94,9 +94,9 @@ export abstract class NgxMatDateAdapter<D> extends DateAdapter<D> {
       throw Error('@Input DefaultTime should be an array');
     }
     let value = date;
-    value = this.setHour(date, defaultTime[0] || 0);
-    value = this.setMinute(date, defaultTime[1] || 0);
-    value = this.setSecond(date, defaultTime[2] || 0);
+    value = this.setHour(value, defaultTime[0] || 0);
+    value = this.setMinute(value, defaultTime[1] || 0);
+    value = this.setSecond(value, defaultTime[2] || 0);
     return value;
   }
 
